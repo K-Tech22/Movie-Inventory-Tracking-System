@@ -8,16 +8,18 @@
 
 class Store
 {
-private:
-    HashTable<int, Customer> customerDatabase;
-    HashTable<string, Movie> movieDatabase;
-
 public:
+    Store();
+
     void buildCustomerDatabase(ifstream &);
 
     void buildMovieDatabase(ifstream &);
 
     void processCommands(ifstream &);
+
+private:
+    HashTable<int, Customer> customerDatabase;
+    HashTable<string, Movie> movieDatabase;
 };
 
 #endif
