@@ -3,6 +3,9 @@
 
 #include <iostream>
 #include "movie.h"
+#include "comedyMovie.h"
+#include "classicMovie.h"
+#include "dramaMovie.h"
 #include "customer.h"
 #include "hashtable.cpp"
 
