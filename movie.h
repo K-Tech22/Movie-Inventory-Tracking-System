@@ -8,7 +8,7 @@ class Movie
 {
 public:
   Movie();
-  Movie(char type, int stock, string name, int year);
+  Movie(char type, int stock, string director, string title, int year);
 
   virtual void display();
 
@@ -23,7 +23,10 @@ public:
   void setYear();
   int getYear();
 
-private:
+  string getDirectorFirstName();
+  string getDirectorLastName();
+
+protected:
   struct Director
   {
     string fname;
@@ -34,6 +37,7 @@ private:
   char type;
   string title;
   int year;
+  Director director;
 };
 
 #endif
