@@ -3,21 +3,26 @@
 
 #include <iostream>
 #include "movie.h"
+#include "comedyMovie.h"
+#include "classicMovie.h"
+#include "dramaMovie.h"
 #include "customer.h"
 #include "hashtable.cpp"
 
 class Store
 {
-private:
-    HashTable<int, Customer> customerDatabase;
-    HashTable<string, Movie> movieDatabase;
-
 public:
+    Store();
+
     void buildCustomerDatabase(ifstream &);
 
     void buildMovieDatabase(ifstream &);
 
     void processCommands(ifstream &);
+
+private:
+    HashTable<int, Customer> customerDatabase;
+    HashTable<string, Movie> movieDatabase;
 };
 
 #endif

@@ -10,14 +10,11 @@ using namespace std;
 
 class Customer
 {
-    int id;
-    string fname;
-    string lname;
 
 public:
     Customer();
     // customer constructor
-    Customer(int, string, string);
+    Customer(int id, string fname, string lname);
     // adds a transaction to the vector
     bool addTransaction(Transaction &);
 
@@ -25,8 +22,19 @@ public:
     // prints the vector
     void transactionHistory();
 
+    string getFirstName();
+    void setFirstName(string);
+
+    string getLastName();
+    void setLastName(string);
+
+    int getID();
+
 private:
     vector<Transaction> transactions;
+    int id;
+    string fname;
+    string lname;
 };
 
 #endif
