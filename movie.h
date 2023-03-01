@@ -17,10 +17,10 @@ public:
 
   char getType();
 
-  void setTitle();
+  void setTitle(string title);
   string getTitle();
 
-  void setYear();
+  void setYear(int year);
   int getYear();
 
   string getDirectorFirstName();
