@@ -26,6 +26,12 @@ public:
   string getDirectorFirstName();
   string getDirectorLastName();
 
+  bool operator==(const Movie &) const;
+  bool operator<=(const Movie &) const;
+  bool operator>=(const Movie &) const;
+  bool operator<(const Movie &) const;
+  bool operator>(const Movie &) const;
+
 protected:
   struct Director
   {
