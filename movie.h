@@ -17,14 +17,20 @@ public:
 
   char getType();
 
-  void setTitle();
+  void setTitle(string title);
   string getTitle();
 
-  void setYear();
+  void setYear(int year);
   int getYear();
 
   string getDirectorFirstName();
   string getDirectorLastName();
+
+  bool operator==(const Movie &) const;
+  bool operator<=(const Movie &) const;
+  bool operator>=(const Movie &) const;
+  bool operator<(const Movie &) const;
+  bool operator>(const Movie &) const;
 
 protected:
   struct Director
