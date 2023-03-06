@@ -32,7 +32,7 @@ void Transaction::display()
       cout << this->mediaType << " Invalid Media Type. Try Again.";
       break;
     case 300: // borrow transaction failed: Customer does not exist
-      cout << "Borrow Transaction Failed-- Customer " << this->account.getID() << " does not exist";
+      cout << "Borrow Transaction Failed -- Customer " << this->account.getID() << " does not exist";
       break;
     case 301: // borrow transaction failed: Movie does not exist in inventory
       cout << "Borrow Transaction Failed -- Movie does not Exist in the Inventory";
@@ -41,9 +41,25 @@ void Transaction::display()
       cout << "Borrow Transaction Failed -- Not enough in the Stock";
       break;
     case 400: // return transaction failed: Customer does not exist
-      cout << "Return Transaction Failed-- Customer " << this->account.getID() << " does not exist";
+      cout << "Return Transaction Failed -- Customer " << this->account.getID() << " does not exist";
+      break;
+    default:
       break;
     }
+    cout << endl;
+    return;
+  }
+
+  switch (this->transactionType)
+  {
+  case 'B':
+    cout << "Borrowed " << this->mv.getTitle() << " by " << this->mv.getDirectorFirstName() << " " << this->mv.getDirectorLastName();
+    break;
+  case 'R':
+    cout << "Returned " << this->mv.getTitle() << " by " << this->mv.getDirectorFirstName() << " " << this->mv.getDirectorLastName();
+    break;
+  default:
+    break;
   }
 }
 
