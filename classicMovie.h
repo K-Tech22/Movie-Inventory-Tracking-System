@@ -8,11 +8,11 @@ using namespace std;
 class ClassicMovie : public Movie
 {
 public:
-    ClassicMovie();
-    ClassicMovie(int stock, string director, string title, string actor, int month, int year);
+    ClassicMovie(const string &majorActor, int month, char type, int stock,
+                 const string &director, const string &title, int year);
 
-    void display();
-    string getMajorActor();
+    // void display();
+    // string getMajorActor();
 
 private:
     string majorActor;

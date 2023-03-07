@@ -3,70 +3,90 @@
 
 using namespace std;
 
-Movie::Movie()
-{
-}
-
 Movie::Movie(char type, int stock, string director, string title, int year)
 {
+    this->type = type;
+    this->stock = stock;
+    this->director = director;
+    this->title = title;
+    this->year = year;
 }
 
-void Movie::display()
-{
-}
+// Movie::Movie()
+// {
+// }
 
-void Movie::setStock(int stock)
-{
-}
+// Movie::Movie(char type, int stock, string directorFirstName, string directorLastName, string title, int year)
+// {
+//     this->type = type;
+//     this->stock = stock;
+//     this->director.fname = directorFirstName;
+//     this->director.lname = directorLastName;
+//     this->title = title;
+//     this->year = year;
+// }
 
-int Movie::getStock()
-{
-}
+// // void Movie::display()
+// // {
+// // }
 
-char Movie::getType()
-{
-}
+// void Movie::setStock(int stock)
+// {
+//     this->stock = stock;
+// }
 
-void Movie::setTitle(string title)
-{
-}
+// int Movie::getStock()
+// {
+//     return this->stock;
+// }
 
-string Movie::getTitle()
-{
-}
+// char Movie::getType()
+// {
+//     return this->type;
+// }
 
-void Movie::setYear(int year)
-{
-}
+// void Movie::setTitle(string title)
+// {
+//     this->title = title;
+// }
 
-int Movie::getYear()
-{
-}
+// string Movie::getTitle()
+// {
+//     return this->title;
+// }
 
-string Movie::getDirectorFirstName()
-{
-}
+// void Movie::setYear(int year)
+// {
+// }
 
-string Movie::getDirectorLastName()
-{
-}
+// int Movie::getYear()
+// {
+// }
 
-bool Movie::operator==(const Movie &movie) const
-{
-}
+// string Movie::getDirectorFirstName()
+// {
+// }
 
-bool Movie::operator<=(const Movie &movie) const
-{
-}
+// string Movie::getDirectorLastName()
+// {
+// }
 
-bool Movie::operator>=(const Movie &movie) const
-{
-}
+// bool Movie::operator==(const Movie &movie) const
+// {
+// }
 
-bool Movie::operator<(const Movie &movie) const
-{
-}
+// bool Movie::operator<=(const Movie &movie) const
+// {
+// }
 
-bool Movie::operator>(const Movie &movie) const
-{
-}
+// bool Movie::operator>=(const Movie &movie) const
+// {
+// }
+
+// bool Movie::operator<(const Movie &movie) const
+// {
+// }
+
+// bool Movie::operator>(const Movie &movie) const
+// {
+// }
