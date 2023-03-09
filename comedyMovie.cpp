@@ -38,5 +38,6 @@ void ComedyMovie::display()
   {
     cout << " ";
   }
-  cout << this->stock << endl;
+  cout << this->stock << endl
+       << endl;
 }

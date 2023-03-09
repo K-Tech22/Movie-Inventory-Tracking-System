@@ -40,4 +40,24 @@ void ClassicMovie::display()
     cout << " ";
   }
   cout << this->stock << endl;
+
+  for (int i = 0; i < this->majorActors.size(); i++)
+  {
+    int numSpaces = 90 - (this->majorActors.at(i).name.length() + 15 + to_string(this->majorActors.at(i).stock).length());
+    this->displayMajorActor(this->majorActors.at(i));
+  }
+  cout << endl;
+}
+
+void ClassicMovie::displayMajorActor(MajorActor actor)
+{
+  cout << actor.name
+       << " ------------- ";
+
+  int numSpaces = 2 - to_string(actor.stock).length();
+  for (int i = 0; i < numSpaces; i++)
+  {
+    cout << " ";
+  }
+  cout << actor.stock << endl;
 }

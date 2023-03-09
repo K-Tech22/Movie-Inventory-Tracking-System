@@ -2,6 +2,7 @@
 #define CLASSIC_MOVIE_H
 #include <iostream>
 #include "movie.h"
+#include <vector>
 
 using namespace std;
 
@@ -12,11 +13,17 @@ public:
                  const string &director, const string &title, int year);
 
     void display();
-    // string getMajorActor();
 
 private:
+    struct MajorActor
+    {
+        string name;
+        int stock;
+    };
     string majorActor;
     int month;
+    vector<MajorActor> majorActors;
+    void displayMajorActor(MajorActor actor);
 };
 
 #endif
