@@ -11,7 +11,7 @@ public:
     ClassicMovie(const string &majorActor, int month, char type, int stock,
                  const string &director, const string &title, int year);
 
-    // void display();
+    void display();
     // string getMajorActor();
 
 private:
