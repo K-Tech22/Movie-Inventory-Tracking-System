@@ -9,10 +9,11 @@ using namespace std;
 class ClassicMovie : public Movie
 {
 public:
-    ClassicMovie(const string &majorActor, int month, char type, int stock,
-                 const string &director, const string &title, int year);
+    ClassicMovie();
+    ClassicMovie(int stock, string director, string title, string majorActor, int month, int year);
 
-    void display();
+    void display(int spaces);
+    void addMajorActor(string actor, int stock);
 
 private:
     struct MajorActor
@@ -20,7 +21,6 @@ private:
         string name;
         int stock;
     };
-    string majorActor;
     int month;
     vector<MajorActor> majorActors;
     void displayMajorActor(MajorActor actor);

@@ -2,13 +2,31 @@
 
 using namespace std;
 
-ClassicMovie::ClassicMovie(const string &majorActor, int month, char type, int stock,
-                           const string &director, const string &title, int year)
+ClassicMovie::ClassicMovie()
 {
 }
 
-void ClassicMovie::display()
+ClassicMovie::ClassicMovie(int stock, string director, string title, string majorActor, int month, int year)
 {
+  this->type = 'C';
+  this->mediaType = 'D';
+  this->director = director;
+  this->title = title;
+  MajorActor actor;
+  actor.name = majorActor;
+  actor.stock = stock;
+  this->majorActors.push_back(actor);
+  this->month = month;
+  this->year = year;
+  this->stock = stock;
+}
+
+void ClassicMovie::display(int spaces)
+{
+  for (int i = 0; i < spaces; i++)
+  {
+    cout << " ";
+  }
   cout << this->type << "      " << this->mediaType;
 
   int numSpaces = 35 - this->title.length();
@@ -43,7 +61,11 @@ void ClassicMovie::display()
 
   for (int i = 0; i < this->majorActors.size(); i++)
   {
-    int numSpaces = 90 - (this->majorActors.at(i).name.length() + 15 + to_string(this->majorActors.at(i).stock).length());
+    int numSpaces = 84 + spaces - (this->majorActors.at(i).name.length() + 15 + to_string(this->majorActors.at(i).stock).length());
+    for (int j = 0; j < numSpaces; j++)
+    {
+      cout << " ";
+    }
     this->displayMajorActor(this->majorActors.at(i));
   }
   cout << endl;
@@ -60,4 +82,24 @@ void ClassicMovie::displayMajorActor(MajorActor actor)
     cout << " ";
   }
   cout << actor.stock << endl;
+}
+
+void ClassicMovie::addMajorActor(string actorName, int stock)
+{
+  bool contains = false;
+  for (int i = 0; i < this->majorActors.size(); i++)
+  {
+    if (this->majorActors.at(i).name == actorName)
+    {
+      this->majorActors.at(i).stock += stock;
+      contains = true;
+    }
+  }
+  if (!contains)
+  {
+    MajorActor actor;
+    actor.name = actorName;
+    actor.stock = stock;
+    this->majorActors.push_back(actor);
+  }
 }
