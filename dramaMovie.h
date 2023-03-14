@@ -11,7 +11,7 @@ public:
   DramaMovie();
   DramaMovie(int stock, string director, string title, int year);
 
-  void display();
+  void display(int spaces);
 
 private:
 };

@@ -8,7 +8,29 @@ using namespace std;
 class Movie
 {
 public:
-  Movie(char type, int stock, string director, string title, int year);
+  Movie();
+  Movie(char type, int stock, string director, string title, int year, char mediaType);
+  virtual void display(int spaces);
+
+  void setStock(int);
+  int getStock();
+  void incStockBy(int);
+
+  char getType();
+
+  void setTitle(string title);
+  string getTitle();
+
+  void setYear(int year);
+  int getYear();
+
+  string getDirectorName();
+
+  bool operator==(const Movie &) const;
+  bool operator<=(const Movie &) const;
+  bool operator>=(const Movie &) const;
+  bool operator<(const Movie &) const;
+  bool operator>(const Movie &) const;
 
 protected:
   char type;
@@ -21,6 +43,7 @@ protected:
   string director;
   string title;
   int year;
+  char mediaType;
 
   // string director;
 };

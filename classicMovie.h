@@ -2,21 +2,28 @@
 #define CLASSIC_MOVIE_H
 #include <iostream>
 #include "movie.h"
+#include <vector>
 
 using namespace std;
 
 class ClassicMovie : public Movie
 {
 public:
-    ClassicMovie(const string &majorActor, int month, char type, int stock,
-                 const string &director, const string &title, int year);
+    ClassicMovie();
+    ClassicMovie(int stock, string director, string title, string majorActor, int month, int year);
 
-    // void display();
-    // string getMajorActor();
+    void display(int spaces);
+    void addMajorActor(string actor, int stock);
 
 private:
-    string majorActor;
+    struct MajorActor
+    {
+        string name;
+        int stock;
+    };
     int month;
+    vector<MajorActor> majorActors;
+    void displayMajorActor(MajorActor actor);
 };
 
 #endif

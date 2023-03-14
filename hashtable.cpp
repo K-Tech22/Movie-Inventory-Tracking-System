@@ -27,7 +27,7 @@ public:
         return hash<K>()(key) % SIZE;
     }
 
-    void insertItem(int key, Customer value)
+    void insertItem(K key, V value)
     {
         int index = hashFunction(key);
         while (keys[index] != K())
@@ -54,10 +54,15 @@ public:
     V find(K key)
     {
         int index = hashFunction(key);
+        int startingIndex = index;
         while (keys[index] != key)
         {
             index++;
             index %= SIZE;
+            if (index == startingIndex)
+            {
+                return values[startingIndex];
+            }
         }
         return values[index];
     }

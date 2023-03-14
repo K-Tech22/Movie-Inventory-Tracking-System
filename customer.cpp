@@ -47,7 +47,7 @@ bool Customer::setCustomerId(Customer c, int id)
 //     }
 // }
 
-string Customer::getFirstName()
+string Customer::getFirstName() const
 {
     return this->fname;
 }
@@ -57,7 +57,7 @@ void Customer::setFirstName(string fname)
     this->fname = fname;
 }
 
-string Customer::getLastName()
+string Customer::getLastName() const
 {
     return this->lname;
 }
@@ -76,7 +76,13 @@ bool Customer::operator==(const Customer &customer) const
     return false;
 }
 
-int Customer::getID()
+int Customer::getID() const
 {
     return this->id;
+}
+
+ostream &operator<<(ostream &out, const Customer &customer)
+{
+    out << customer.getID() << " " << customer.getFirstName() << " " << customer.getLastName();
+    return out;
 }
