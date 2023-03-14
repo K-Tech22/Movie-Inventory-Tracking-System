@@ -1,4 +1,3 @@
-#pragma once
 #include "movie.h"
 
 using namespace std;
@@ -31,8 +30,9 @@ Movie::Movie(char type, int stock, string director, string title, int year, char
 //     this->year = year;
 // }
 
-void Movie::display()
+void Movie::display(int spaces)
 {
+    cout << "wrong method";
 }
 
 void Movie::setStock(int stock)
@@ -43,6 +43,11 @@ void Movie::setStock(int stock)
 int Movie::getStock()
 {
     return this->stock;
+}
+
+void Movie::incStockBy(int s)
+{
+    this->stock += s;
 }
 
 char Movie::getType()
@@ -62,36 +67,43 @@ string Movie::getTitle()
 
 void Movie::setYear(int year)
 {
+    this->year = year;
 }
 
 int Movie::getYear()
 {
+    return this->year;
 }
 
-string Movie::getDirectorFirstName()
+string Movie::getDirectorName()
 {
-}
-
-string Movie::getDirectorLastName()
-{
+    return this->director;
 }
 
 bool Movie::operator==(const Movie &movie) const
 {
+    return (this->title == movie.title &&
+            this->director == movie.director &&
+            this->mediaType == movie.mediaType &&
+            this->year == movie.year);
 }
 
 bool Movie::operator<=(const Movie &movie) const
 {
+    return (this->title < movie.title || (this->operator==(movie)));
 }
 
 bool Movie::operator>=(const Movie &movie) const
 {
+    return (this->title > movie.title || (this->operator==(movie)));
 }
 
 bool Movie::operator<(const Movie &movie) const
 {
+    return this->title < movie.title;
 }
 
 bool Movie::operator>(const Movie &movie) const
 {
+    return this->title > movie.title;
 }
