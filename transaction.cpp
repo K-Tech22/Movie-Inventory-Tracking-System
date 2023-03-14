@@ -21,10 +21,10 @@ void Transaction::display()
   switch (this->transactionType)
   {
   case 'B':
-    cout << "Borrowed " << this->mv.getTitle() << " by " << this->mv.getDirectorFirstName() << " " << this->mv.getDirectorLastName();
+    cout << "Borrowed " << this->mv.getTitle() << " by " << this->mv.getDirectorName();
     break;
   case 'R':
-    cout << "Returned " << this->mv.getTitle() << " by " << this->mv.getDirectorFirstName() << " " << this->mv.getDirectorLastName();
+    cout << "Returned " << this->mv.getTitle() << " by " << this->mv.getDirectorName();
     break;
   default:
     break;
