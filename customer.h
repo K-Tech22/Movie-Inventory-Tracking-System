@@ -9,6 +9,7 @@ using namespace std;
 
 class Customer
 {
+    friend ostream &operator<<(ostream &, const Customer &);
 
 public:
     Customer();
@@ -19,15 +20,15 @@ public:
 
     bool setCustomerId(Customer, int);
     // prints the vector
-    void transactionHistory();
+    void transactionHistory() const;
 
-    string getFirstName();
+    string getFirstName() const;
     void setFirstName(string);
 
-    string getLastName();
+    string getLastName() const;
     void setLastName(string);
 
-    int getID();
+    int getID() const;
 
     bool operator==(const Customer &) const;
 
