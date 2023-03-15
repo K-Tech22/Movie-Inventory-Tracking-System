@@ -8,8 +8,8 @@ using namespace std;
 
 Store::Store()
 {
-    this->customerDatabase = HashTable<int, Customer *>();
-    this->movieDatabase = HashTable<string, Movie *>();
+    this->customerDatabase = new HashTable<Customer *>();
+    this->movieDatabase = new HashTable<Movie *>();
 }
 
 void Store::buildCustomerDatabase(const string &filename)
@@ -19,7 +19,7 @@ void Store::buildCustomerDatabase(const string &filename)
     while (infile.peek() != EOF)
     {
         getline(infile, text, ' ');
-        int id = stoi(text);
+        string id = text;
 
         getline(infile, text, ' ');
         string firstName = text;
@@ -27,8 +27,8 @@ void Store::buildCustomerDatabase(const string &filename)
         getline(infile, text);
         string lastName = text;
 
-        Customer *customer = new Customer(id, firstName, lastName);
-        this->customerDatabase.insertItem(id, customer);
+        Customer *customer = new Customer(stoi(id), firstName, lastName);
+        this->customerDatabase->insert(id, customer);
 
         // checking if the hashtable is being filled
         // cout << this->customerDatabase.find(id) << endl;
@@ -61,7 +61,7 @@ void Store::buildMovieDatabase(const string &filename)
         director = directorFName + " " + directorLName;
 
         getline(infile, text, ',');
-        title = text; //.substr(1, text.length());
+        title = text.substr(1, text.length());
 
         switch (type)
         {
@@ -81,21 +81,22 @@ void Store::buildMovieDatabase(const string &filename)
 
             getline(infile, text);
             year = stoi(text);
-
-            if (this->movieDatabase.find(title) == NULL)
+            string key = to_string(month) + to_string(year);
+            if (this->movieDatabase->get(key) == NULL)
             {
                 ClassicMovie *movie = new ClassicMovie(stock, director, title, majorActor, month, year);
-                this->movieDatabase.insertItem(title, movie);
+
+                this->movieDatabase->insert(key, movie);
             }
             else
             {
-                ClassicMovie *movie = (ClassicMovie *)this->movieDatabase.find(title);
+                ClassicMovie *movie = (ClassicMovie *)this->movieDatabase->get(key);
                 movie->addMajorActor(majorActor, stock);
             }
 
             // checking if the hashtable is being filled
-            this->movieDatabase.find(title)->display(0);
-            cout << endl;
+            // this->movieDatabase->get(key)->display(0);
+            // cout << endl;
             break;
         }
         case 'F':
@@ -103,16 +104,18 @@ void Store::buildMovieDatabase(const string &filename)
             getline(infile, text);
             year = stoi(text);
 
+            string key = title + to_string(year);
+
             ComedyMovie *movie = new ComedyMovie(stock, director, title, year);
 
-            if (this->movieDatabase.find(title) == NULL)
-                this->movieDatabase.insertItem(title, movie);
+            if (this->movieDatabase->get(key) == NULL)
+                this->movieDatabase->insert(key, movie);
             else
-                this->movieDatabase.find(title)->incStockBy(stock);
+                this->movieDatabase->get(key)->incStockBy(stock);
 
             // checking if the hashtable is being filled
-            this->movieDatabase.find(title)->display(0);
-            cout << endl;
+            // this->movieDatabase->get(key)->display(0);
+            // cout << endl;
             break;
         }
         case 'D':
@@ -120,20 +123,26 @@ void Store::buildMovieDatabase(const string &filename)
             getline(infile, text);
             year = stoi(text);
 
+            string key = director + title;
+
             DramaMovie *movie = new DramaMovie(stock, director, title, year);
 
-            if (this->movieDatabase.find(title) == NULL)
-                this->movieDatabase.insertItem(title, movie);
+            if (this->movieDatabase->get(key) == NULL)
+                this->movieDatabase->insert(key, movie);
             else
-                this->movieDatabase.find(title)->incStockBy(stock);
+                this->movieDatabase->get(key)->incStockBy(stock);
 
             // checking if the hashtable is being filled
-            this->movieDatabase.find(title)->display(0);
-            cout << endl;
+            // this->movieDatabase->get(key)->display(0);
+            // cout << endl;
             break;
         }
         default:
+        {
+            string restOfLine;
+            getline(infile, restOfLine);
             break;
+        }
         }
     }
 }
@@ -159,11 +168,18 @@ void Store::processCommands(const string &filename)
         {
             int accountNumber;
             fileStream >> accountNumber;
-            if (this->customerDatabase.find(accountNumber) != NULL)
-                this->customerDatabase.find(accountNumber)->transactionHistory();
+            if (this->customerDatabase->get(to_string(accountNumber)) != NULL)
+            {
+                cout << endl
+                     << "History for " << this->customerDatabase->get(to_string(accountNumber))->getFirstName();
+                cout << " " << this->customerDatabase->get(to_string(accountNumber))->getLastName() << ":" << endl;
+                this->customerDatabase->get(to_string(accountNumber))->transactionHistory();
+            }
             else
             {
-                cout << "ERROR: History Command Failed -- Customer " << accountNumber << " does not exist";
+                string restOfLine;
+                getline(fileStream, restOfLine);
+                cout << "ERROR: History Command Failed -- Customer " << accountNumber << " does not exist" << endl;
             }
             break;
         }
@@ -171,9 +187,11 @@ void Store::processCommands(const string &filename)
         {
             int accountNumber;
             fileStream >> accountNumber;
-            if (this->customerDatabase.find(accountNumber) == NULL)
+            if (this->customerDatabase->get(to_string(accountNumber)) == NULL)
             {
-                cout << "ERROR: Borrow Transaction Failed -- Customer " << accountNumber << " does not exist";
+                string restOfLine;
+                getline(fileStream, restOfLine);
+                cout << "ERROR: Borrow Transaction Failed -- Customer " << accountNumber << " does not exist" << endl;
                 break;
             }
 
@@ -181,6 +199,8 @@ void Store::processCommands(const string &filename)
             fileStream >> mediaType;
             if (mediaType != 'D')
             {
+                string restOfLine;
+                getline(fileStream, restOfLine);
                 cout << "ERROR: " << mediaType << " Invalid Media Type. Try Again." << endl;
                 break;
             }
@@ -193,19 +213,46 @@ void Store::processCommands(const string &filename)
             case 'F':
             {
                 string title;
+                getline(fileStream, title, ' ');
                 getline(fileStream, title, ',');
 
                 int year;
                 fileStream >> year;
+
+                string key = title + to_string(year);
+                if (this->movieDatabase->get(key) == NULL)
+                {
+                    cout << "ERROR: Borrow Transaction Failed -- Movie does not Exist in the Inventory" << endl;
+                    break;
+                }
+
+                if (!this->movieDatabase->get(key)->borrow(1))
+                {
+                    cout << "ERROR: Borrow Transaction Failed -- Not enough in the Stock" << endl;
+                }
                 break;
             }
             case 'D':
             {
                 string director;
+                getline(fileStream, director, ' ');
                 getline(fileStream, director, ',');
 
                 string title;
+                getline(fileStream, title, ' ');
                 getline(fileStream, title, ',');
+
+                string key = director + title;
+                if (this->movieDatabase->get(key) == NULL)
+                {
+                    cout << "ERROR: Borrow Transaction Failed -- Movie does not Exist in the Inventory" << endl;
+                    break;
+                }
+
+                if (!this->movieDatabase->get(key)->borrow(1))
+                {
+                    cout << "ERROR: Borrow Transaction Failed -- Not enough in the Stock" << endl;
+                }
                 break;
             }
             case 'C':
@@ -216,13 +263,29 @@ void Store::processCommands(const string &filename)
                 int year;
                 fileStream >> year;
 
-                string director;
-                getline(fileStream, director);
+                string actor;
+                getline(fileStream, actor, ' ');
+                getline(fileStream, actor, '\r');
+
+                string key = to_string(month) + to_string(year);
+                if (this->movieDatabase->get(key) == NULL)
+                {
+                    cout << "ERROR: Borrow Transaction Failed -- Movie does not Exist in the Inventory" << endl;
+                    break;
+                }
+                ClassicMovie *movie = (ClassicMovie *)this->movieDatabase->get(key);
+                if (!(movie->removeStock(actor, 1)))
+                {
+                    cout << "ERROR: Borrow Transaction Failed -- Not enough in the Stock" << endl;
+                }
+
                 break;
             }
             default:
             {
-                cout << "ERROR: " << genre << " Invalid Genre Type." << endl;
+                string restOfLine;
+                getline(fileStream, restOfLine);
+                // cout << "ERROR: " << genre << " Invalid Genre Type." << endl;
                 break;
             }
             }
@@ -234,9 +297,11 @@ void Store::processCommands(const string &filename)
             int accountNumber;
             fileStream >> accountNumber;
 
-            if (this->customerDatabase.find(accountNumber) == NULL)
+            if (this->customerDatabase->get(to_string(accountNumber)) == NULL)
             {
-                cout << "ERROR: Return Transaction Failed -- Customer " << accountNumber << " does not exist";
+                string restOfLine;
+                getline(fileStream, restOfLine);
+                cout << "ERROR: Return Transaction Failed -- Customer " << accountNumber << " does not exist" << endl;
                 break;
             }
 
@@ -245,6 +310,8 @@ void Store::processCommands(const string &filename)
 
             if (mediaType != 'D')
             {
+                string restOfLine;
+                getline(fileStream, restOfLine);
                 cout << "ERROR: " << mediaType << " Invalid Media Type. Try Again." << endl;
                 break;
             }
@@ -257,20 +324,40 @@ void Store::processCommands(const string &filename)
             case 'F':
             {
                 string title;
+                getline(fileStream, title, ' ');
                 getline(fileStream, title, ',');
 
                 int year;
                 fileStream >> year;
+
+                string key = title + to_string(year);
+                if (this->movieDatabase->get(key) == NULL)
+                {
+                    cout << "ERROR: Return Transaction Failed -- Movie does not Exist in the Inventory" << endl;
+                    break;
+                }
+
+                this->movieDatabase->get(key)->incStockBy(1);
                 break;
             }
             case 'D':
             {
                 string director;
+                getline(fileStream, director, ' ');
                 getline(fileStream, director, ',');
 
                 string title;
+                getline(fileStream, title, ' ');
                 getline(fileStream, title, ',');
-                break;
+
+                string key = director + title;
+                if (this->movieDatabase->get(key) == NULL)
+                {
+                    cout << "ERROR: Return Transaction Failed -- Movie does not Exist in the Inventory" << endl;
+                    break;
+                }
+
+                this->movieDatabase->get(key)->incStockBy(1);
             }
             case 'C':
             {
@@ -280,13 +367,26 @@ void Store::processCommands(const string &filename)
                 int year;
                 fileStream >> year;
 
-                string director;
-                getline(fileStream, director);
+                string actor;
+                getline(fileStream, actor, ' ');
+                getline(fileStream, actor, '\r');
+
+                string key = to_string(month) + to_string(year);
+                if (this->movieDatabase->get(key) == NULL)
+                {
+                    cout << "ERROR: Return Transaction Failed -- Movie does not Exist in the Inventory" << endl;
+                    break;
+                }
+                ClassicMovie *movie = (ClassicMovie *)this->movieDatabase->get(key);
+                movie->addMajorActor(actor, 1);
                 break;
             }
             default:
             {
-                cout << "ERROR: " << genre << " Invalid Genre Type." << endl;
+                string restOfLine;
+                getline(fileStream, restOfLine);
+                cout
+                    << "ERROR: " << genre << " Invalid Genre Type." << endl;
                 break;
             }
             }
@@ -294,6 +394,8 @@ void Store::processCommands(const string &filename)
         }
         default:
         {
+            string restOfLine;
+            getline(fileStream, restOfLine);
             cout << "ERROR: " << command << " Invalid Transaction Type. Try Again." << endl;
         }
         }

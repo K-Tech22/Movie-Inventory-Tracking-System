@@ -7,7 +7,7 @@
 #include "classicMovie.h"
 #include "dramaMovie.h"
 #include "customer.h"
-#include "hashtable.cpp"
+#include "otherHashTable.cpp"
 
 class Store
 {
@@ -21,8 +21,8 @@ public:
     void processCommands(const string &);
 
 private:
-    HashTable<int, Customer *> customerDatabase;
-    HashTable<string, Movie *> movieDatabase;
+    HashTable<Customer *> *customerDatabase;
+    HashTable<Movie *> *movieDatabase;
 };
 
 #endif

@@ -92,7 +92,9 @@ void ClassicMovie::addMajorActor(string actorName, int stock)
     if (this->majorActors.at(i).name == actorName)
     {
       this->majorActors.at(i).stock += stock;
+      this->stock += stock;
       contains = true;
+      break;
     }
   }
   if (!contains)
@@ -101,5 +103,27 @@ void ClassicMovie::addMajorActor(string actorName, int stock)
     actor.name = actorName;
     actor.stock = stock;
     this->majorActors.push_back(actor);
+    this->stock += stock;
   }
+}
+
+bool ClassicMovie::removeStock(string actorName, int stock)
+{
+  for (int i = 0; i < this->majorActors.size(); i++)
+  {
+    if (this->majorActors.at(i).name == actorName)
+    {
+      if (this->majorActors.at(i).stock - stock >= 0)
+      {
+        this->majorActors.at(i).stock -= stock;
+        this->stock -= stock;
+        return true;
+      }
+      else
+      {
+        return false;
+      }
+    }
+  }
+  return false;
 }

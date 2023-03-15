@@ -16,6 +16,7 @@ public:
 
     void display(int spaces) const;
     void addMajorActor(string actor, int stock);
+    bool removeStock(string actor, int stock);
 
 private:
     struct MajorActor

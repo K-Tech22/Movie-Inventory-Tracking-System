@@ -107,3 +107,13 @@ bool Movie::operator>(const Movie &movie) const
 {
     return this->title > movie.title;
 }
+
+bool Movie::borrow(int num)
+{
+    if (this->stock - num < 0)
+    {
+        return false;
+    }
+    this->stock -= num;
+    return true;
+}

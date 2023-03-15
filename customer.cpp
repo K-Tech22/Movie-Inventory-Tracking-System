@@ -41,10 +41,11 @@ bool Customer::setCustomerId(Customer c, int id)
 
 void Customer::transactionHistory() const
 {
-    for (int i = 0; i <= this->transactions.size(); i++)
+    for (int i = 0; i < this->transactions.size(); i++)
     {
-        // cout << i + 1 << ". " << transactions[i] << endl;
+        cout << i + 1 << ". " << transactions[i] << endl;
     }
+    cout << endl;
 }
 
 string Customer::getFirstName() const

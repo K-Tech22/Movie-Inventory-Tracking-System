@@ -11,6 +11,7 @@ public:
   Movie();
   Movie(char type, int stock, string director, string title, int year, char mediaType);
   virtual void display(int spaces) const;
+  bool borrow(int num);
 
   void setStock(int);
   int getStock() const;

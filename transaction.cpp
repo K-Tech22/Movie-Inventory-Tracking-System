@@ -1,18 +1,16 @@
 #include <iostream>
 #include "transaction.h"
-#include "customer.h"
 
 Transaction::Transaction()
 {
   // instance variables not set
 }
 
-Transaction::Transaction(char mediaType, char transactionType, Movie mv, Customer account)
+Transaction::Transaction(char mediaType, char transactionType, Movie mv)
 {
   this->mediaType = mediaType;
   this->transactionType = transactionType;
   this->mv = mv;
-  this->account = account;
 }
 
 void Transaction::display() const
@@ -64,4 +62,5 @@ void Transaction::setMovie(Movie mv)
 ostream &operator<<(ostream &out, const Transaction &t)
 {
   t.display();
+  return out;
 }

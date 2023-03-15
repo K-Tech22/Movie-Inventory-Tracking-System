@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include "movie.h"
-#include "customer.h"
 
 using namespace std;
 
@@ -13,7 +12,7 @@ class Transaction
 
 public:
     Transaction();
-    Transaction(char mediaType, char transactionType, Movie mv, Customer account);
+    Transaction(char mediaType, char transactionType, Movie mv);
 
     void display() const;
 
@@ -32,7 +31,6 @@ private:
     Movie mv;
     bool isError;
     int errorCode;
-    Customer account;
 };
 
 #endif
