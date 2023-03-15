@@ -9,19 +9,21 @@ using namespace std;
 
 class Transaction
 {
+    friend ostream &operator<<(ostream &, const Transaction &);
+
 public:
     Transaction();
     Transaction(char mediaType, char transactionType, Movie mv, Customer account);
 
-    void display();
+    void display() const;
 
-    char getMediaType();
+    char getMediaType() const;
     void setMediaType(char mType);
 
-    char getTransactionType();
+    char getTransactionType() const;
     void setTransactionType(char tType);
 
-    Movie getMovie();
+    Movie getMovie() const;
     void setMovie(Movie mv);
 
 private:

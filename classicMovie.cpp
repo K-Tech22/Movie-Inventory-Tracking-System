@@ -21,7 +21,7 @@ ClassicMovie::ClassicMovie(int stock, string director, string title, string majo
   this->stock = stock;
 }
 
-void ClassicMovie::display(int spaces)
+void ClassicMovie::display(int spaces) const
 {
   for (int i = 0; i < spaces; i++)
   {
@@ -71,7 +71,7 @@ void ClassicMovie::display(int spaces)
   cout << endl;
 }
 
-void ClassicMovie::displayMajorActor(MajorActor actor)
+void ClassicMovie::displayMajorActor(MajorActor actor) const
 {
   cout << actor.name
        << " ------------- ";

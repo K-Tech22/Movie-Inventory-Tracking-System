@@ -30,7 +30,7 @@ Movie::Movie(char type, int stock, string director, string title, int year, char
 //     this->year = year;
 // }
 
-void Movie::display(int spaces)
+void Movie::display(int spaces) const
 {
     cout << "wrong method";
 }
@@ -40,7 +40,7 @@ void Movie::setStock(int stock)
     this->stock = stock;
 }
 
-int Movie::getStock()
+int Movie::getStock() const
 {
     return this->stock;
 }
@@ -50,7 +50,7 @@ void Movie::incStockBy(int s)
     this->stock += s;
 }
 
-char Movie::getType()
+char Movie::getType() const
 {
     return this->type;
 }
@@ -60,7 +60,7 @@ void Movie::setTitle(string title)
     this->title = title;
 }
 
-string Movie::getTitle()
+string Movie::getTitle() const
 {
     return this->title;
 }
@@ -70,12 +70,12 @@ void Movie::setYear(int year)
     this->year = year;
 }
 
-int Movie::getYear()
+int Movie::getYear() const
 {
     return this->year;
 }
 
-string Movie::getDirectorName()
+string Movie::getDirectorName() const
 {
     return this->director;
 }

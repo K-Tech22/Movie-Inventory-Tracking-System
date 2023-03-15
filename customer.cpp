@@ -23,11 +23,11 @@ Customer::Customer(int id, string fname, string lname)
     this->lname = lname;
 }
 
-// bool Customer::addTransaction(Transaction &t)
-// {
-//     this->transactions.push_back(t);
-//     return true;
-// }
+bool Customer::addTransaction(Transaction &t)
+{
+    this->transactions.push_back(t);
+    return true;
+}
 
 bool Customer::setCustomerId(Customer c, int id)
 {
@@ -39,13 +39,13 @@ bool Customer::setCustomerId(Customer c, int id)
     return false;
 }
 
-// void Customer::transactionHistory()
-// {
-//     for (int i = 0; i <= this->transactions.size(); i++)
-//     {
-//         // cout << i + 1 << ". " << transactions[i] << endl;
-//     }
-// }
+void Customer::transactionHistory() const
+{
+    for (int i = 0; i <= this->transactions.size(); i++)
+    {
+        // cout << i + 1 << ". " << transactions[i] << endl;
+    }
+}
 
 string Customer::getFirstName() const
 {

@@ -11,7 +11,7 @@ public:
   ComedyMovie();
   ComedyMovie(int stock, string director, string title, int year);
 
-  void display(int spaces);
+  void display(int spaces) const;
 
 private:
 };

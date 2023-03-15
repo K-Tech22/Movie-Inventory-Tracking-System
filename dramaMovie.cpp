@@ -16,7 +16,7 @@ DramaMovie::DramaMovie(int stock, string director, string title, int year)
   this->year = year;
 }
 
-void DramaMovie::display(int spaces)
+void DramaMovie::display(int spaces) const
 {
   for (int i = 0; i < spaces; i++)
   {

@@ -10,21 +10,21 @@ class Movie
 public:
   Movie();
   Movie(char type, int stock, string director, string title, int year, char mediaType);
-  virtual void display(int spaces);
+  virtual void display(int spaces) const;
 
   void setStock(int);
-  int getStock();
+  int getStock() const;
   void incStockBy(int);
 
-  char getType();
+  char getType() const;
 
   void setTitle(string title);
-  string getTitle();
+  string getTitle() const;
 
   void setYear(int year);
-  int getYear();
+  int getYear() const;
 
-  string getDirectorName();
+  string getDirectorName() const;
 
   bool operator==(const Movie &) const;
   bool operator<=(const Movie &) const;

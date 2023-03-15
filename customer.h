@@ -2,7 +2,7 @@
 #define CUSTOMER_H
 
 #include <iostream>
-// #include "transaction.h"
+#include "transaction.h"
 #include <vector>
 
 using namespace std;
@@ -15,8 +15,9 @@ public:
     Customer();
     // customer constructor
     Customer(int id, string fname, string lname);
+
     // adds a transaction to the vector
-    // bool addTransaction(Transaction &);
+    bool addTransaction(Transaction &);
 
     bool setCustomerId(Customer, int);
     // prints the vector
@@ -33,7 +34,7 @@ public:
     bool operator==(const Customer &) const;
 
 private:
-    // vector<Transaction> transactions;
+    vector<Transaction> transactions;
     int id;
     string fname;
     string lname;

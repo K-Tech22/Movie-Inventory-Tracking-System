@@ -16,7 +16,7 @@ ComedyMovie::ComedyMovie(int stock, string director, string title, int year)
   this->year = year;
 }
 
-void ComedyMovie::display(int spaces)
+void ComedyMovie::display(int spaces) const
 {
   for (int i = 0; i < spaces; i++)
   {

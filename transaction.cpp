@@ -15,7 +15,7 @@ Transaction::Transaction(char mediaType, char transactionType, Movie mv, Custome
   this->account = account;
 }
 
-void Transaction::display()
+void Transaction::display() const
 {
 
   switch (this->transactionType)
@@ -31,7 +31,7 @@ void Transaction::display()
   }
 }
 
-char Transaction::getMediaType()
+char Transaction::getMediaType() const
 {
   return this->mediaType;
 }
@@ -41,7 +41,7 @@ void Transaction::setMediaType(char mType)
   this->mediaType = mType;
 }
 
-char Transaction::getTransactionType()
+char Transaction::getTransactionType() const
 {
   return this->transactionType;
 }
@@ -51,7 +51,7 @@ void Transaction::setTransactionType(char tType)
   this->transactionType = tType;
 }
 
-Movie Transaction::getMovie()
+Movie Transaction::getMovie() const
 {
   return this->mv;
 }
@@ -59,4 +59,9 @@ Movie Transaction::getMovie()
 void Transaction::setMovie(Movie mv)
 {
   this->mv = mv;
+}
+
+ostream &operator<<(ostream &out, const Transaction &t)
+{
+  t.display();
 }
