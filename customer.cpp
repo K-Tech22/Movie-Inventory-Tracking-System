@@ -43,7 +43,7 @@ void Customer::transactionHistory() const
 {
     for (int i = 0; i < this->transactions.size(); i++)
     {
-        cout << i + 1 << ". " << transactions[i] << endl;
+        cout << transactions[this->transactions.size() - i - 1] << endl;
     }
     cout << endl;
 }

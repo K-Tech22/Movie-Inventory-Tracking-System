@@ -22,10 +22,10 @@ void Store::buildCustomerDatabase(const string &filename)
         string id = text;
 
         getline(infile, text, ' ');
-        string firstName = text;
+        string lastName = text;
 
         getline(infile, text);
-        string lastName = text;
+        string firstName = text;
 
         Customer *customer = new Customer(stoi(id), firstName, lastName);
         this->customerDatabase->insert(id, customer);
@@ -154,6 +154,12 @@ void Store::processCommands(const string &filename)
     fileStream.open(filename);
     while (fileStream.peek() != EOF)
     {
+        // streampos oldpos = fileStream.tellg();
+        // string line;
+        // getline(fileStream, line);
+        // if (line == "")
+        //     break;
+        // fileStream.seekg(oldpos);
         char command;
         fileStream >> command;
 
@@ -187,6 +193,7 @@ void Store::processCommands(const string &filename)
         {
             int accountNumber;
             fileStream >> accountNumber;
+
             if (this->customerDatabase->get(to_string(accountNumber)) == NULL)
             {
                 string restOfLine;
@@ -230,6 +237,11 @@ void Store::processCommands(const string &filename)
                 {
                     cout << "ERROR: Borrow Transaction Failed -- Not enough in the Stock" << endl;
                 }
+                else
+                {
+                    Transaction newTransaction(mediaType, 'B', *this->movieDatabase->get(key));
+                    this->customerDatabase->get(to_string(accountNumber))->addTransaction(newTransaction);
+                }
                 break;
             }
             case 'D':
@@ -252,6 +264,11 @@ void Store::processCommands(const string &filename)
                 if (!this->movieDatabase->get(key)->borrow(1))
                 {
                     cout << "ERROR: Borrow Transaction Failed -- Not enough in the Stock" << endl;
+                }
+                else
+                {
+                    Transaction newTransaction(mediaType, 'B', *this->movieDatabase->get(key));
+                    this->customerDatabase->get(to_string(accountNumber))->addTransaction(newTransaction);
                 }
                 break;
             }
@@ -277,6 +294,11 @@ void Store::processCommands(const string &filename)
                 if (!(movie->removeStock(actor, 1)))
                 {
                     cout << "ERROR: Borrow Transaction Failed -- Not enough in the Stock" << endl;
+                }
+                else
+                {
+                    Transaction newTransaction(mediaType, 'B', *this->movieDatabase->get(key));
+                    this->customerDatabase->get(to_string(accountNumber))->addTransaction(newTransaction);
                 }
 
                 break;
@@ -338,6 +360,8 @@ void Store::processCommands(const string &filename)
                 }
 
                 this->movieDatabase->get(key)->incStockBy(1);
+                Transaction newTransaction(mediaType, 'R', *this->movieDatabase->get(key));
+                this->customerDatabase->get(to_string(accountNumber))->addTransaction(newTransaction);
                 break;
             }
             case 'D':
@@ -358,6 +382,8 @@ void Store::processCommands(const string &filename)
                 }
 
                 this->movieDatabase->get(key)->incStockBy(1);
+                Transaction newTransaction(mediaType, 'R', *this->movieDatabase->get(key));
+                this->customerDatabase->get(to_string(accountNumber))->addTransaction(newTransaction);
             }
             case 'C':
             {
@@ -379,6 +405,8 @@ void Store::processCommands(const string &filename)
                 }
                 ClassicMovie *movie = (ClassicMovie *)this->movieDatabase->get(key);
                 movie->addMajorActor(actor, 1);
+                Transaction newTransaction(mediaType, 'R', *this->movieDatabase->get(key));
+                this->customerDatabase->get(to_string(accountNumber))->addTransaction(newTransaction);
                 break;
             }
             default:
