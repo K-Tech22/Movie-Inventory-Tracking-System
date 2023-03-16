@@ -1,84 +1,103 @@
 #include <iostream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
-const int SIZE = 100;
-
-template <typename K, typename V>
+template <typename T>
 class HashTable
 {
 private:
-    K keys[SIZE];
-    V values[SIZE];
+  struct Node
+  {
+    std::string key;
+    T value;
+  };
+  static const int max_size = 100;
+  Node table[100];
+  int numOfItems;
 
 public:
-    HashTable()
+  HashTable()
+  {
+    for (int i = 0; i < max_size; i++)
     {
-        for (int i = 0; i < SIZE; i++)
-        {
-            keys[i] = K();
-            values[i] = V();
-        }
+      table[i].key = "";
     }
+    numOfItems = 0;
+  }
 
-    int hashFunction(K key)
+  int hashFunction(const std::string &key) const
+  {
+    int hash = 0;
+    for (int i = 0; i < key.length(); i++)
     {
-        return hash<K>()(key) % SIZE;
+      hash += key[i];
     }
+    return hash % max_size;
+  }
 
-    void insertItem(K key, V value)
+  void insert(const std::string &key, const T value)
+  {
+    int index = hashFunction(key);
+    if (table[index].key == "")
     {
-        int index = hashFunction(key);
-        while (keys[index] != K())
-        {
-            index++;
-            index %= SIZE;
-        }
-        keys[index] = key;
-        values[index] = value;
+      table[index].key = key;
+      table[index].value = value;
     }
+    else
+    {
+      int i = (index + 1) % max_size;
+      while (i != index)
+      {
+        if (table[i].key == "")
+        {
+          table[i].key = key;
+          table[i].value = value;
+          numOfItems++;
+          break;
+        }
+        i = (i + 1) % max_size;
+      }
+      if (i == index)
+      {
+        std::cerr << "Hashtable is full." << std::endl;
+      }
+    }
+  }
 
-    void deleteItem(K key)
+  T get(const std::string key)
+  {
+    int index = hashFunction(key);
+    if (table[index].key == key)
     {
-        int index = hashFunction(key);
-        while (keys[index] != key)
-        {
-            index++;
-            index %= SIZE;
-        }
-        keys[index] = K();
-        values[index] = V();
+      return table[index].value;
     }
+    else
+    {
+      int i = (index + 1) % max_size;
+      while (i != index && table[i].key != "")
+      {
+        if (table[i].key == key)
+        {
+          return table[i].value;
+        }
+        i = (i + 1) % max_size;
+      }
+      return NULL;
+    }
+  }
 
-    V find(K key)
+  vector<T> getAll()
+  {
+    vector<T> array;
+    for (int i = 0; i < max_size; i++)
     {
-        int index = hashFunction(key);
-        int startingIndex = index;
-        while (keys[index] != key)
-        {
-            index++;
-            index %= SIZE;
-            if (index == startingIndex)
-            {
-                return values[startingIndex];
-            }
-        }
-        return values[index];
+      if (table[i].key != "")
+      {
+        array.push_back(table[i].value);
+      }
     }
-
-    void display()
-    {
-        for (int i = 0; i < SIZE; i++)
-        {
-            if (keys[i] != K())
-            {
-                cout << keys[i] << " --> " << values[i] << endl;
-            }
-            else
-            {
-                cout << i << endl;
-            }
-        }
-    }
+    return array;
+  }
 };
