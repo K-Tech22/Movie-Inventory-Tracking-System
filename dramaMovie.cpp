@@ -2,10 +2,22 @@
 
 using namespace std;
 
+/**
+ * Constructor
+ *
+ * @pre none
+ * @post Movie is constructed, no variables initialized
+ */
 DramaMovie::DramaMovie()
 {
 }
 
+/**
+ * Constructor
+ *
+ * @pre none
+ * @post Movie is constructed, variables are initialized
+ */
 DramaMovie::DramaMovie(int stock, string director, string title, int year)
 {
   this->type = 'D';
@@ -16,6 +28,12 @@ DramaMovie::DramaMovie(int stock, string director, string title, int year)
   this->year = year;
 }
 
+/**
+ * display
+ *
+ * @pre none
+ * @post Contents of movie will be displayed to console, with 'spaces' number of spaces in front
+ */
 void DramaMovie::display(int spaces) const
 {
   for (int i = 0; i < spaces; i++)
