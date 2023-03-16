@@ -167,7 +167,47 @@ void Store::processCommands(const string &filename)
         {
         case 'I':
         {
-            // TODO
+            vector<Movie *> movies = this->movieDatabase->getAll();
+
+            cout << "---------------------------" << endl;
+            cout << "Comedies:" << endl
+                 << endl;
+            cout << "  Genre  Media                              Title            Director   Year  Stock" << endl;
+            for (int i = 0; i < movies.size(); i++)
+            {
+                if (movies.at(i)->getType() == 'F')
+                {
+                    movies.at(i)->display(6);
+                }
+            }
+            cout << endl;
+
+            cout << "---------------------------" << endl;
+            cout << "Classics:" << endl
+                 << endl;
+            cout << "  Genre  Media                              Title            Director   Year  Stock" << endl;
+            for (int i = 0; i < movies.size(); i++)
+            {
+                if (movies.at(i)->getType() == 'C')
+                {
+                    movies.at(i)->display(6);
+                }
+            }
+            cout << endl;
+
+            cout << "---------------------------" << endl;
+            cout << "Dramas:" << endl
+                 << endl;
+            cout << "  Genre  Media                              Title            Director   Year  Stock" << endl;
+            for (int i = 0; i < movies.size(); i++)
+            {
+                if (movies.at(i)->getType() == 'D')
+                {
+                    movies.at(i)->display(6);
+                }
+            }
+            cout << endl;
+
             break;
         }
         case 'H':
