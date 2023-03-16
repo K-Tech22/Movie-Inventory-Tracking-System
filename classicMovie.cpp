@@ -74,14 +74,7 @@ void ClassicMovie::display(int spaces) const
 void ClassicMovie::displayMajorActor(MajorActor actor) const
 {
   cout << actor.name
-       << " ------------- ";
-
-  int numSpaces = 2 - to_string(actor.stock).length();
-  for (int i = 0; i < numSpaces; i++)
-  {
-    cout << " ";
-  }
-  cout << actor.stock << endl;
+       << " ------------- " << actor.stock << endl;
 }
 
 void ClassicMovie::addMajorActor(string actorName, int stock)
