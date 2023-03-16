@@ -8,29 +8,133 @@ using namespace std;
 class Movie
 {
 public:
+  /**
+   * Constructor
+   *
+   * @pre none
+   * @post Movie is constructed, no variables set
+   */
   Movie();
+
+  /**
+   * Constructor
+   *
+   * @pre none
+   * @post sets/initializes movie instance variables
+   */
   Movie(char type, int stock, string director, string title, int year, char mediaType);
+
+  /**
+   * display (virtual)
+   *
+   * @pre none
+   * @post Determined by child class implementation
+   */
   virtual void display(int spaces) const;
   bool borrow(int num);
 
+  /**
+   * setStock
+   *
+   * setter method for stock
+   */
   void setStock(int);
+
+  /**
+   * getStock
+   *
+   * getter method for stock (int)
+   */
   int getStock() const;
+
+  /**
+   * incStockBy
+   *
+   * @pre none
+   * @post increases the stock by int passed
+   */
   void incStockBy(int);
 
+  /**
+   * getType
+   *
+   * getter for movie type (char)
+   */
   char getType() const;
 
+  /**
+   * setTitle
+   *
+   * Setter for movie title
+   */
   void setTitle(string title);
+
+  /**
+   * getTitle
+   *
+   * getter for movie title (string)
+   */
   string getTitle() const;
 
+  /**
+   * setYear
+   *
+   * setter for movie year
+   */
   void setYear(int year);
+
+  /**
+   * getYear
+   *
+   * getter for movie year
+   */
   int getYear() const;
 
+  /**
+   * getDirectorName
+   *
+   * getter for director name (string)
+   */
   string getDirectorName() const;
 
+  /**
+   * operator==
+   *
+   * @pre movie is not null
+   * @post returns true if contents of this are same as movie passed, false otherwise
+   */
   bool operator==(const Movie &) const;
+
+  /**
+   * operator<=
+   *
+   * @pre movie is not null
+   * @post Returns true if this title < movie title, or if both movies are equal
+   */
   bool operator<=(const Movie &) const;
+
+  /**
+   * operator<=
+   *
+   * @pre movie is not null
+   * @post Returns true if this title > movie title, or if both movies are equal
+   */
   bool operator>=(const Movie &) const;
+
+  /**
+   * operator<
+   *
+   * @pre movie is not null
+   * @post Returns true if this title < movie title
+   */
   bool operator<(const Movie &) const;
+
+  /**
+   * operator>
+   *
+   * @pre movie is not null
+   * @post Returns true if this title > movie title
+   */
   bool operator>(const Movie &) const;
 
 protected:
@@ -45,50 +149,6 @@ protected:
   string title;
   int year;
   char mediaType;
-
-  // string director;
 };
-
-// class Movie
-// {
-// public:
-//   Movie();
-//   Movie(char type, int stock, string directorFirstName, string getDirectorLastName, string title, int year);
-
-//   virtual void display();
-
-//   void setStock(int);
-//   int getStock();
-
-//   char getType();
-
-//   void setTitle(string title);
-//   string getTitle();
-
-//   void setYear(int year);
-//   int getYear();
-
-//   string getDirectorFirstName();
-//   string getDirectorLastName();
-
-//   bool operator==(const Movie &) const;
-//   bool operator<=(const Movie &) const;
-//   bool operator>=(const Movie &) const;
-//   bool operator<(const Movie &) const;
-//   bool operator>(const Movie &) const;
-
-// protected:
-//   struct Director
-//   {
-//     string fname;
-//     string lname;
-//   };
-
-//   int stock;
-//   char type;
-//   string title;
-//   int year;
-//   Director director;
-// };
 
 #endif
