@@ -6,12 +6,24 @@
 
 using namespace std;
 
+/**
+ * Constructor
+ *
+ * @pre none
+ * @post Customer and Movie hashmaps will be initialized
+ */
 Store::Store()
 {
     this->customerDatabase = new HashTable<Customer *>();
     this->movieDatabase = new HashTable<Movie *>();
 }
 
+/**
+ * buildCustomerDatabase
+ *
+ * @pre Customer data in file passed is formatted properly
+ * @post Customer data is stored in store customer hashmap
+ */
 void Store::buildCustomerDatabase(const string &filename)
 {
     ifstream infile(filename);
@@ -35,6 +47,12 @@ void Store::buildCustomerDatabase(const string &filename)
     }
 }
 
+/**
+ * buildMovieDatabase
+ *
+ * @pre Movie data in file passed is formatted properly
+ * @post Movie data will be stored in store movie hashmap
+ */
 void Store::buildMovieDatabase(const string &filename)
 {
     ifstream infile(filename);
@@ -147,6 +165,12 @@ void Store::buildMovieDatabase(const string &filename)
     }
 }
 
+/**
+ * processCommands
+ *
+ * @pre Commands in file passed are formatted properly
+ * @post Commands will be issued and store data will be updated accordingly
+ */
 void Store::processCommands(const string &filename)
 {
     fstream fileStream;
@@ -188,6 +212,12 @@ void Store::processCommands(const string &filename)
     }
 }
 
+/**
+ * displayInventoryHelper
+ *
+ * @pre none
+ * @post Inventory of store will be displayed to console
+ */
 void Store::displayInventoryHelper()
 {
     vector<Movie *> movies = this->movieDatabase->getAll();
@@ -232,6 +262,12 @@ void Store::displayInventoryHelper()
     cout << endl;
 }
 
+/**
+ * displayHistoryHelper
+ *
+ * @pre fileStream must be at a point to receive data for processing a history command
+ * @post History command will be issued and displayed to console
+ */
 void Store::displayHistoryHelper(fstream &fileStream)
 {
     int accountNumber;
@@ -253,6 +289,12 @@ void Store::displayHistoryHelper(fstream &fileStream)
     }
 }
 
+/**
+ * processBorrowHelper
+ *
+ * @pre fileStream must be at a point to receive data for a borrow command
+ * @post Borrow command will be issued and update store inventory
+ */
 void Store::processBorrowHelper(fstream &fileStream)
 {
     int accountNumber;
@@ -377,6 +419,12 @@ void Store::processBorrowHelper(fstream &fileStream)
     }
 }
 
+/**
+ * processReturnHelper
+ *
+ * @pre fileStream must be at a point to receive data for a return command
+ * @post Return command will be issued and update store inventory
+ */
 void Store::processReturnHelper(fstream &fileStream)
 {
     int accountNumber;
