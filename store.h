@@ -23,6 +23,9 @@ public:
 private:
     HashTable<Customer *> *customerDatabase;
     HashTable<Movie *> *movieDatabase;
+    void displayInventoryHelper();
+    void displayHistoryHelper(fstream &);
+    void processBorrowHelper(fstream &);
+    void processReturnHelper(fstream &);
 };
-
 #endif
