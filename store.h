@@ -7,7 +7,7 @@
 #include "classicMovie.h"
 #include "dramaMovie.h"
 #include "customer.h"
-#include "otherHashTable.cpp"
+#include "hashtable.cpp"
 
 class Store
 {
@@ -19,6 +19,14 @@ public:
      * @post Customer and Movie hashmaps will be initialized
      */
     Store();
+
+    /**
+     * Deconstructor
+     *
+     * @pre none
+     * @post all memory allocated by store will be cleared
+     */
+    ~Store();
 
     /**
      * buildCustomerDatabase

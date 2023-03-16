@@ -19,6 +19,27 @@ Store::Store()
 }
 
 /**
+ * Deconstructor
+ *
+ * @pre none
+ * @post all memory allocated by store will be cleared
+ */
+Store::~Store()
+{
+    vector<Customer *> customers = this->customerDatabase->getAll();
+    vector<Movie *> movies = this->movieDatabase->getAll();
+
+    for (int i = 0; i < customers.size(); i++)
+    {
+        delete customers.at(i);
+    }
+    for (int i = 0; i < movies.size(); i++)
+    {
+        delete movies.at(i);
+    }
+}
+
+/**
  * buildCustomerDatabase
  *
  * @pre Customer data in file passed is formatted properly
