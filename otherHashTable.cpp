@@ -1,5 +1,8 @@
 #include <iostream>
 #include <string>
+#include <vector>
+
+using namespace std;
 
 template <typename T>
 class HashTable
@@ -12,6 +15,7 @@ private:
   };
   static const int max_size = 100;
   Node table[100];
+  int numOfItems;
 
 public:
   HashTable()
@@ -20,6 +24,7 @@ public:
     {
       table[i].key = "";
     }
+    numOfItems = 0;
   }
 
   int hashFunction(const std::string &key) const
@@ -49,6 +54,7 @@ public:
         {
           table[i].key = key;
           table[i].value = value;
+          numOfItems++;
           break;
         }
         i = (i + 1) % max_size;
@@ -80,5 +86,18 @@ public:
       }
       return NULL;
     }
+  }
+
+  vector<T> getAll()
+  {
+    vector<T> array;
+    for (int i = 0; i < max_size; i++)
+    {
+      if (table[i].key != "")
+      {
+        array.push_back(table[i].value);
+      }
+    }
+    return array;
   }
 };
