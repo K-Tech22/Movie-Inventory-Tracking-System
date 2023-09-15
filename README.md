@@ -1,4 +1,4 @@
-# Movie-Inventory-Tracking-System-Kush
+# Movie-Inventory-Tracking-System
 
 This program will have 6 classes that will be used to automate and issue commands for a movie rental store inventory tracking system. The classes include: Transaction, Customer, Movie, ComedyMovie, DramaMovie, ClassicMovie, and Store.
 
